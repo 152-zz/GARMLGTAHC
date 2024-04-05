@@ -43,13 +43,8 @@ M3E-base: 地址 https://www.modelscope.cn/Jerry0/m3e-base.git
 + 为了保证 `torch` 的版本正确，请严格按照 [官方文档](https://pytorch.org/get-started/locally/) 的说明安装。
 + `gradio` 库版本应该为 `3.x` 的版本。
 
++ 还原rag的database部分需要加载PyPDF2之类的包，以及部分时尚杂志，版权问题，暂不公开
+
 ### 综合 
 
 可自行参考https://github.com/THUDM/ChatGLM3和https://huggingface.co/moka-ai/m3e-base
-
-
-  booktitle={Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},
-  pages={320--335},
-  year={2022}
-}
-```
