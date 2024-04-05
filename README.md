@@ -1,4 +1,4 @@
-# ChatGLM3 & iic/nlp_gte_sentence-embedding_chinese-large
+# RAG
 
 ## 介绍
 
@@ -45,7 +45,7 @@ M3E-base: 地址 https://www.modelscope.cn/Jerry0/m3e-base.git
 
 ### 综合 Demo
 
-我们提供了一个集成以下三种功能的综合 Demo，运行方法请参考 [综合 Demo](composite_demo/README.md)
+提供了一个集成以下三种功能的综合 Demo，运行方法请参考 [综合 Demo](composite_demo/README.md)
 
 - Chat: 对话模式，在此模式下可以与模型进行对话。
 - Tool: 工具模式，模型除了对话外，还可以通过工具进行其他操作。
