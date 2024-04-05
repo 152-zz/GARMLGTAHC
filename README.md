@@ -4,7 +4,7 @@
 
 ChatGLM3 是智谱AI和清华大学 KEG 实验室联合发布的新一代对话预训练模型。ChatGLM3-6B-32k 是 ChatGLM3 系列中的开源模型。
 
-nlp_gte_sentence-embedding_chinese-large 文本表示是自然语言处理(NLP)领域的核心问题, 其在很多NLP、信息检索的下游任务中发挥着非常重要的作用。近几年, 随着深度学习的发展，尤其是预训练语言模型的出现极大的推动了文本表示技术的效果, 基于预训练语言模型的文本表示模型在学术研究数据、工业实际应用中都明显优于传统的基于统计模型或者浅层神经网络的文本表示模型
+M3E 是 Moka Massive Mixed Embedding 的缩写.此模型由 MokaAI 训练，开源和评测，训练脚本使用 [uniem](https://github.com/wangyuxinwhy/uniem/blob/main/scripts/train_m3e.py) ，评测 BenchMark 使用 [MTEB-zh](https://github.com/wangyuxinwhy/uniem/tree/main/mteb-zh)
 
 -----
 
@@ -21,12 +21,12 @@ ChatGLM3 开源模型旨在与开源社区一起推动大模型技术发展，�
 
 以ChatGLM3的本地化部署，共有clip,streamlit,gradio,openai-style四种demo和调试方式；
 基于p-tuning v2微调技术，对于特定任务进行微调，例如，单论对话情境下，AdvertiseGen数据集训练赋予模型由商品标签自动生成对商品描述，也支持多轮对话微调；
-利用ChatGLM3-6B-32k结合GTE中文通用表示模型检索增强生成(需先执行download.sh下载数据集)
+利用ChatGLM3-6B-32k结合M3E表示模型检索增强生成，用于根据更新的时装周刊数据库对模型检索增强。
 
 ### 环境安装
 首先需要下载本仓库：
 ```shell
-git https://github.com/152-zz/GARMLGTAHC.git
+git https://github.com/152-zz/CHAT2clothes.git
 cd ChatGLM3
 ```
 
@@ -36,8 +36,8 @@ pip install -r requirements.txt
 ```
 在ChatGLM3下创建两个文件夹：
 chatglm3-6b-32k：地址 https://www.modelscope.cn/ZhipuAI/chatglm3-6b-32k.git
-nlp_gte_sentence-embedding_chinese-large: 地址https://www.modelscope.cn/iic/nlp_gte_sentence-embedding_chinese-large.git
 
+M3E-base: 地址 https://www.modelscope.cn/Jerry0/m3e-base.git
 
 + `transformers` 库版本应该 `4.30.2` 以及以上的版本 ，`torch` 库版本应为 2.0 及以上的版本，以获得最佳的推理性能。
 + 为了保证 `torch` 的版本正确，请严格按照 [官方文档](https://pytorch.org/get-started/locally/) 的说明安装。
@@ -52,13 +52,6 @@ nlp_gte_sentence-embedding_chinese-large: 地址https://www.modelscope.cn/iic/nl
     <img src="resources/tool.png" width="400">
 - Code Interpreter: 代码解释器模式，模型可以在一个 Jupyter 环境中执行代码并获取结果，以完成复杂任务。
     <img src="resources/heart.png" width="400">
-
-
-
-#### 从本地加载模型
-
-从 Hugging Face Hub 下载模型需要先[安装Git LFS](https://docs.github.com/zh/repositories/working-with-files/managing-large-files/installing-git-large-file-storage)，然后运行
-git clone https://huggingface.co/THUDM/chatglm3-6b
 
 
 ### 模型微调

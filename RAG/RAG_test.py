@@ -4,7 +4,7 @@ from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 import os
 
 # 定义 Embeddings
-embeddings = HuggingFaceEmbeddings(model_name="../nlp_gte_sentence-embedding_chinese-large")
+embeddings = HuggingFaceEmbeddings(model_name="../m3e-base")
 
 # 向量数据库持久化路径
 persist_directory = 'data_base/vector_db/chroma'
@@ -22,7 +22,7 @@ llm.predict("你是谁")
 from langchain.prompts import PromptTemplate
 
 # 我们所构造的 Prompt 模板
-template = """使用以下上下文来回答最后的问题。如果你不知道答案，就说你不知道，不要试图编造答案。尽量使答案简明扼要。总是在回答的最后说“希望这些信息帮到你！”。
+template = """如果你不知道答案，就说你不知道，不要试图编造答案。尽量使答案简明扼要。请结合后面给出的英文提示，用英文回答！”。
 {context}
 问题: {question}
 有用的回答:"""
@@ -35,7 +35,7 @@ from langchain.chains import RetrievalQA
 qa_chain = RetrievalQA.from_chain_type(llm,retriever=vectordb.as_retriever(),return_source_documents=True,chain_type_kwargs={"prompt":QA_CHAIN_PROMPT})
 
 # 检索问答链回答效果
-question = "从图灵测试到GPT"
+question = "If I want to buy a T-shirt, what do you recommend?"
 result = qa_chain({"query": question})
 print("检索问答链回答 question 的结果：")
 print(result["result"])
