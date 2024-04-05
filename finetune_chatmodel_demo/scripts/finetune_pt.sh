@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
 
 set -ex
+export NCCL_P2P_DISABLE=1
+export NCCL_IB_DISABLE=1
 
 PRE_SEQ_LEN=128
 LR=2e-2
@@ -9,19 +11,20 @@ MAX_SOURCE_LEN=1024
 MAX_TARGET_LEN=128
 DEV_BATCH_SIZE=1
 GRAD_ACCUMULARION_STEPS=32
-MAX_STEP=1000
-SAVE_INTERVAL=500
+MAX_STEP=20
+SAVE_INTERVAL=10
 
 DATESTR=`date +%Y%m%d-%H%M%S`
 RUN_NAME=advertise_gen_pt
 
-BASE_MODEL_PATH=THUDM/chatglm3-6b
+BASE_MODEL_PATH=../../chatglm3-6b-32k
 DATASET_PATH=formatted_data/advertise_gen.jsonl
 OUTPUT_DIR=output/${RUN_NAME}-${DATESTR}-${PRE_SEQ_LEN}-${LR}
 
 mkdir -p $OUTPUT_DIR
 
-torchrun --standalone --nnodes=1 --nproc_per_node=$NUM_GPUS finetune.py \
+torchrun --standalone --nnodes=1 --nproc_per_node=$NUM_GPUS ../finetune.py \
+    --deepspeed ../configs/deepspeed.json\
     --train_format input-output \
     --train_file $DATASET_PATH \
     --preprocessing_num_workers 1 \

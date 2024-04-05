@@ -3,16 +3,16 @@
 set -ex
 
 LR=1e-4
-NUM_GPUS=4
+NUM_GPUS=1
 MAX_SOURCE_LEN=1024
 MAX_TARGET_LEN=128
 DEV_BATCH_SIZE=4
 GRAD_ACCUMULARION_STEPS=1
-MAX_STEP=500
-SAVE_INTERVAL=500
+MAX_STEP=100
+SAVE_INTERVAL=50
 
 RUN_NAME=advertise_gen_ft
-BASE_MODEL_PATH=THUDM/chatglm3-6b
+BASE_MODEL_PATH=../../chatglm3-6b-32K
 DATASET_PATH=formatted_data/advertise_gen.jsonl
 
 DATESTR=`date +%Y%m%d-%H%M%S`
@@ -21,7 +21,8 @@ MASTER_PORT=$(shuf -n 1 -i 10000-65535)
 
 mkdir -p $OUTPUT_DIR
 
-torchrun --standalone --nnodes=1 --nproc_per_node=$NUM_GPUS finetune.py \
+torchrun --standalone --nnodes=1 --nproc_per_node=$NUM_GPUS ../finetune.py \
+    --deepspeed ../configs/deepspeed.json\
     --train_format input-output \
     --train_file $DATASET_PATH \
     --preprocessing_num_workers 1 \
