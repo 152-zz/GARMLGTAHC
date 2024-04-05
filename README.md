@@ -1,4 +1,4 @@
-# ChatGLM3 & nlp_gte_sentence-embedding_chinese-large
+# RAG
 
 ## 介绍
 
